@@ -3,6 +3,7 @@ package exo11;
 import java.time.LocalDate;
 
 public class Copilote extends Pilote {
+  private Voiture voitureConduite;
 
   public Copilote(Personne p, Voiture voitureCoconduite){
     super(p, voitureCoconduite);

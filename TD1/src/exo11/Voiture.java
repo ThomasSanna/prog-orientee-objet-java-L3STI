@@ -5,10 +5,10 @@ public class Voiture {
   private Pilote monPilote;
   private Copilote monCopilote;
 
-  public Voiture(char typeVoiture){
+  public Voiture(char typeVoiture, Pilote monPilote, Copilote monCopilote){
     this.typeVoiture = typeVoiture;
-    this.monPilote = null;
-    this.monCopilote = null;
+    this.monPilote = monPilote;
+    this.monCopilote = monCopilote;
   }
 
   public Pilote getMonPilote() {
