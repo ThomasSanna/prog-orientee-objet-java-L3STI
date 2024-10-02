@@ -1,72 +1,34 @@
 import java.util.ArrayList;
 import java.util.List;
 
-class Serie {
-  private int id;
-  private String titre;
-  private String synopsis;
-  private List<Saison> saisons = new ArrayList<>();
-  private SocieteDeProduction producteur;
+class Serie extends Video {
+    private List<Saison> saisons = new ArrayList<>();
 
-  public Serie(int id, String titre, String synopsis, SocieteDeProduction producteur) {
-      this.id = id;
-      this.titre = titre;
-      this.synopsis = synopsis;
-      this.producteur = producteur;
-  }
+    public Serie(int id, String titre, String synopsis, SocieteDeProduction producteur) {
+        super(id, titre, synopsis, producteur);
+    }
 
-  public void ajouterSaison(Saison saison) {
-      saisons.add(saison);
-  }
+    public void ajouterSaison(Saison saison) {
+        saisons.add(saison);
+    }
 
-  public void afficherDetails() {
-      System.out.println("Série: " + titre);
-      System.out.println("Synopsis: " + synopsis);
-      System.out.println("Producteur: " + producteur.getNom());
-      System.out.println("Saisons:");
-      for (Saison saison : saisons) {
-          saison.afficherDetails();
-      }
-  }
+    @Override
+    public void afficherDetails() {
+        System.out.println("Série: " + getTitre());
+        System.out.println("Synopsis: " + getSynopsis());
+        System.out.println("Producteur: " + getProducteur().getNom());
+        System.out.println("Saisons:");
+        for (Saison saison : saisons) {
+            saison.afficherDetails();
+        }
+    }
 
-  // Getters and Setters
-  public int getId() {
-    return id;
-  }
+    // Getters and Setters
+    public List<Saison> getSaisons() {
+        return saisons;
+    }
 
-  public void setId(int id) {
-    this.id = id;
-  }
-
-  public String getTitre() {
-    return titre;
-  }
-
-  public void setTitre(String titre) {
-    this.titre = titre;
-  }
-
-  public String getSynopsis() {
-    return synopsis;
-  }
-
-  public void setSynopsis(String synopsis) {
-    this.synopsis = synopsis;
-  }
-
-  public List<Saison> getSaisons() {
-    return saisons;
-  }
-
-  public void setSaisons(List<Saison> saisons) {
-    this.saisons = saisons;
-  }
-
-  public SocieteDeProduction getProducteur() {
-    return producteur;
-  }
-
-  public void setProducteur(SocieteDeProduction producteur) {
-    this.producteur = producteur;
-  }
+    public void setSaisons(List<Saison> saisons) {
+        this.saisons = saisons;
+    }
 }

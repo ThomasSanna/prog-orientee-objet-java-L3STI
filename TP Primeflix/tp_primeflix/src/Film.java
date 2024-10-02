@@ -1,62 +1,24 @@
-class Film {
-  private int id;
-  private String titre;
-  private String synopsis;
+class Film extends Video {
   private double duree;
-  private SocieteDeProduction producteur;
 
   public Film(int id, String titre, String synopsis, double duree, SocieteDeProduction producteur) {
-      this.id = id;
-      this.titre = titre;
-      this.synopsis = synopsis;
+      super(id, titre, synopsis, producteur);
       this.duree = duree;
-      this.producteur = producteur;
   }
 
+  @Override
   public void afficherDetails() {
-      System.out.println("Film: " + titre + " (" + duree + " heures)");
-      System.out.println("Synopsis: " + synopsis);
-      System.out.println("Producteur: " + producteur.getNom());
+      System.out.println("Film: " + getTitre() + " (" + duree + " heures)");
+      System.out.println("Synopsis: " + getSynopsis());
+      System.out.println("Producteur: " + getProducteur().getNom());
   }
 
   // Getters and Setters
-  public int getId() {
-    return id;
-  }
-
-  public void setId(int id) {
-    this.id = id;
-  }
-
-  public String getTitre() {
-    return titre;
-  }
-
-  public void setTitre(String titre) {
-    this.titre = titre;
-  }
-
-  public String getSynopsis() {
-    return synopsis;
-  }
-
-  public void setSynopsis(String synopsis) {
-    this.synopsis = synopsis;
-  }
-
   public double getDuree() {
     return duree;
   }
 
   public void setDuree(double duree) {
-    this.duree = duree;
-  }
-
-  public SocieteDeProduction getProducteur() {
-    return producteur;
-  }
-
-  public void setProducteur(SocieteDeProduction producteur) {
-    this.producteur = producteur;
+      this.duree = duree;
   }
 }
