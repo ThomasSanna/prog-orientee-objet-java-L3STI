@@ -1,9 +1,11 @@
-package Exo1;
+package Exo1.Serialiseur;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
+
+import Exo1.Personne;
 
 public class Deserialiser implements Serializable{
 
