@@ -1,7 +1,9 @@
-package exo8_chat;
+package exo8_chat.ActionServer;
 
 import java.io.*;
 import java.net.*;
+
+import exo8_chat.Server;
 
 public class ReceiveMessage implements Runnable {
   private Socket socket;
@@ -12,15 +14,22 @@ public class ReceiveMessage implements Runnable {
 
   public void run(){
     try {
-      DataInputStream in = new DataInputStream(socket.getInputStream());
-      while(true){
+      while(!socket.isClosed()){
+        ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
         String message = in.readUTF();
         System.out.println(message + " " + socket.getInetAddress() + ":" + socket.getPort());
+        if (message.equals("est parti.")){
+          socket.close();
+          Server.enleverClient(socket);
+        }
         BroadcastMessage envoieMessage = new BroadcastMessage(message, socket);
         envoieMessage.run();
       }
+    } catch (EOFException e){
+      System.out.println("Fin de la connexion");
     } catch (IOException e) {
+      System.out.println("Problème RECEIVE");
       e.printStackTrace();
-    }
+    } 
   }
 }
