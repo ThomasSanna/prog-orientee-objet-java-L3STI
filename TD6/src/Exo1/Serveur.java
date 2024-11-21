@@ -11,6 +11,7 @@ public class Serveur {
 
     try{
       ServerSocket serverSocket = new ServerSocket(2000);
+      System.out.println("Le serveur est en marche. En attente de client."); ////
 
       while (true){
         Socket client = serverSocket.accept();
