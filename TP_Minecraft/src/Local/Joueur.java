@@ -1,5 +1,4 @@
 package Local;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -360,8 +359,8 @@ public class Joueur implements Serializable{
     }
 
     public void recevoirDegats(int degats) {
-        int degatsReels = Math.max(0, degats - (pointsDefense + (armure != null ? armure.getBonusDefense() : 0)));
-        pointsVie -= degatsReels;
+        int degatsReels = Math.max(0, degats - (armure != null ? armure.getBonusDefense() : 0)); // si on a plus de défense que les dégâts, on ne prend pas de dégâts
+        pointsVie -= (pointsVie - degatsReels < 0 ? pointsVie : degatsReels);
         if (degatsReels == 0) {
             System.out.println(nom + " a bloqué l'attaque avec ses beaux muscles rigides !");
         } else {

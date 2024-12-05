@@ -66,51 +66,52 @@ public class Serveur {
 
     public void exec() {
         try {
-            ServerSocket serverSocket = new ServerSocket(1234);
-            System.out.println("Serveur démarré sur le port 1234");
+            try (ServerSocket serverSocket = new ServerSocket(1234)) {
+                System.out.println("Serveur démarré sur le port 1234");
 
-            while (true) {
-                while (clientCount < 2) {
-                    Socket client = serverSocket.accept();
-                    clientCount++;
-                    clientsArrayList.add(client);
-                    System.out.println("Client connecté : " + clientCount);
+                while (true) {
+                    while (clientCount < 2) {
+                        Socket client = serverSocket.accept();
+                        clientCount++;
+                        clientsArrayList.add(client);
+                        System.out.println("Client connecté : " + clientCount);
 
-                    ObjectOutputStream out = new ObjectOutputStream(client.getOutputStream());
-                    ObjectInputStream in = new ObjectInputStream(client.getInputStream());
+                        ObjectOutputStream out = new ObjectOutputStream(client.getOutputStream());
+                        ObjectInputStream in = new ObjectInputStream(client.getInputStream());
 
-                    outMap.put(client, out);
-                    inMap.put(client, in);
+                        outMap.put(client, out);
+                        inMap.put(client, in);
 
-                    Thread getJoueurInfo = new Thread(new GetJoueurInfo(client, in));
-                    getJoueurInfo.start();
-                }
-
-                synchronized (lock) {
-                    while (joueursMap.size() < 2) {
-                        lock.wait();
+                        Thread getJoueurInfo = new Thread(new GetJoueurInfo(client, in));
+                        getJoueurInfo.start();
                     }
+
+                    synchronized (lock) {
+                        while (joueursMap.size() < 2) {
+                            lock.wait();
+                        }
+                    }
+
+                    System.out.println("2 joueurs connectés");
+                    Socket client1 = clientsArrayList.get(0);
+                    Socket client2 = clientsArrayList.get(1);
+
+                    ObjectOutputStream out1 = outMap.get(client1);
+                    ObjectOutputStream out2 = outMap.get(client2);
+
+                    out1.writeObject(joueursMap.get(client2));
+                    out2.writeObject(joueursMap.get(client1));
+
+                    BoucleJeu boucleJeu = new BoucleJeu(clientsArrayList, joueursMap, outMap);
+                    boucleJeu.exec();
+
+                    resetAll();
+                    System.out.println("Partie terminée, en attente de nouveaux joueurs...");
                 }
-
-                System.out.println("2 joueurs connectés");
-                Socket client1 = clientsArrayList.get(0);
-                Socket client2 = clientsArrayList.get(1);
-
-                ObjectOutputStream out1 = outMap.get(client1);
-                ObjectOutputStream out2 = outMap.get(client2);
-
-                out1.writeObject(joueursMap.get(client2));
-                out2.writeObject(joueursMap.get(client1));
-
-                BoucleJeu boucleJeu = new BoucleJeu(clientsArrayList, joueursMap, outMap);
-                boucleJeu.exec();
-
-                resetAll();
-                System.out.println("Partie terminée, en attente de nouveaux joueurs...");
             }
 
         } catch (IOException | InterruptedException e) {
-            e.printStackTrace();
+            System.out.println("Erreur serveur : " + e.getMessage());
         }
     }
 

@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import Local.Joueur;
-import Multijoueur.Serveur;
 import Utils.TempsAttente;
 
 public class BoucleJeu {
@@ -16,9 +15,9 @@ public class BoucleJeu {
   // 2. Boucle de jeu
   // 2.1. ECHANGE DATTAQUES SANS DEMANDE DU SERVEUR
 
-  private static ArrayList<Socket> clientsArrayList = new ArrayList<Socket>();
-  private static Map<Socket, Joueur> joueursMap = new HashMap<Socket, Joueur>();
-  private static Map<Socket, ObjectOutputStream> outMap = new HashMap<Socket, ObjectOutputStream>();
+  private ArrayList<Socket> clientsArrayList = new ArrayList<Socket>();
+  private Map<Socket, Joueur> joueursMap = new HashMap<Socket, Joueur>();
+  private Map<Socket, ObjectOutputStream> outMap = new HashMap<Socket, ObjectOutputStream>();
 
   public BoucleJeu(ArrayList<Socket> clientsArrayList, Map<Socket, Joueur> joueursMap,
       Map<Socket, ObjectOutputStream> outMap) {

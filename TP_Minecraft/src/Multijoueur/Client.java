@@ -2,9 +2,7 @@ package Multijoueur;
 
 import java.io.*;
 import java.net.*;
-import java.util.*;
 import Local.*;
-import Multijoueur.ActionServeur.*;
 import Utils.*;
 
 public class Client implements Serializable {
