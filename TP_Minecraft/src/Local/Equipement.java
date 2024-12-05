@@ -1,3 +1,4 @@
+package Local;
 public class Equipement extends Item {
     private int bonusDefense;
     private int bonusAttaque;

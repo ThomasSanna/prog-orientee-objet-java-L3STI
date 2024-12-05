@@ -1,4 +1,5 @@
-public class Item {
+package Local;
+public class Item implements java.io.Serializable {
     private String nom;
     private String type;
     private int quantite;
@@ -22,7 +23,7 @@ public class Item {
     }
 
     public void removeQuantite(int quantite) {
-        this.quantite -= quantite;
+        this.quantite -= this.quantite - quantite >= 0 ? quantite : this.quantite;
     }
 
     public void setQuantite(int quantite) {

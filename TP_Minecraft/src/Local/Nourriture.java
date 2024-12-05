@@ -1,3 +1,4 @@
+package Local;
 public class Nourriture extends Item {
   private int restaurationPV;
 

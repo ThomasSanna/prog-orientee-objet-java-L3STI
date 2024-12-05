@@ -1,3 +1,6 @@
+package Local;
+import Utils.TempsAttente;
+
 public class Bloc {
     private String nom;
     private String type;
@@ -20,7 +23,18 @@ public class Bloc {
     }
 
     public Item recuperer() {
-        System.out.println(drop.getNom() + " a ete ajoute a votre inventaire.");
+        if (type.equals("Chance")) {
+            double random = Math.random();
+            if (random < 0.3) {
+                System.out.println("Vous avez trouvé une pomme !");
+                TempsAttente.attendre(1000);
+                Item drop = GameData.getItemParNom("Pomme");
+                drop.addQuantite(1);
+                return drop;
+            } else {
+                return drop;
+            }
+        } 
         drop.addQuantite(1);
         return drop;
     }

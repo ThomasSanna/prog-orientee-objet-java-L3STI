@@ -2,10 +2,11 @@
 
 import Local.Joueur;
 
-public class Test {
+public class Test2 {
     public static void main(String[] args) {
 
-        Joueur joueur = new Joueur("Steve", 20, 0, 5);
+        Joueur joueur = new Joueur("Marie", 20, 0, 7);
         joueur.afficherMenu();
     }
 }
+

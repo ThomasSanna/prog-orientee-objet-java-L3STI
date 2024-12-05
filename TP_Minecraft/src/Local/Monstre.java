@@ -1,3 +1,4 @@
+package Local;
 import Utils.TempsAttente;
 
 public class Monstre implements Cloneable {
