@@ -51,45 +51,39 @@ public class GameData {
 
     private static void initialiserRecettes() {
         recettes = new HashMap<>();
-        // Recette pour une épée en pierre : 2 pierres + 1 bois
+
         recettes.put(
             Arrays.asList(getItemParNom("Pierre"), getItemParNom("Pierre"), getItemParNom("Bois")),
             new Arme("Epée en pierre", 5, 0)
         );
 
-        // Recette pour une épée en fer : 2 fers + 1 bois
         recettes.put(
             Arrays.asList(getItemParNom("Fer"), getItemParNom("Fer"), getItemParNom("Bois")),
             new Arme("Epée en fer", 10, 1)
         );
 
-        // Recette pour une épée en or : 2 ors + 1 bois
         recettes.put(
             Arrays.asList(getItemParNom("Or"), getItemParNom("Or"), getItemParNom("Bois")),
             new Arme("Epée en or", 15, 2)
         );
 
-        // Recette pour une épée en diamant : 2 diamants + 1 bois
         recettes.put(
             Arrays.asList(getItemParNom("Diamant"), getItemParNom("Diamant"), getItemParNom("Bois")),
             new Arme("Epée en diamant", 20, 3)
         );
 
-        // Recette pour une armure en fer : 4 fers
         recettes.put(
             Arrays.asList(getItemParNom("Fer"), getItemParNom("Fer"), getItemParNom("Fer"),
                           getItemParNom("Fer")),
             new Armure("Armure en fer", 15, 1)
         );
 
-        // Recette pour une armure en or : 4 ors
         recettes.put(
             Arrays.asList(getItemParNom("Or"), getItemParNom("Or"), getItemParNom("Or"),
               getItemParNom("Or")),
             new Armure("Armure en or", 10, 2)
         );
 
-        // Recette pour une armure en diamant : 4 diamants
         recettes.put(
             Arrays.asList(getItemParNom("Diamant"), getItemParNom("Diamant"), getItemParNom("Diamant"),
               getItemParNom("Diamant")),

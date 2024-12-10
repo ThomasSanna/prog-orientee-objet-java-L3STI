@@ -14,9 +14,9 @@ public class Joueur implements Serializable{
     private int pointsVie;
     private int pointsDefense;
     private int pointsAttaque;
-    private List<Item> inventaire;
-    private Arme arme;
-    private Armure armure;
+    protected List<Item> inventaire;
+    protected Arme arme;
+    protected Armure armure;
     private transient Scanner scanner;
     private static final double TAUX_RENCONTRE_MONSTRE = 0.05;
     private static final double TAUX_RENCONTRE_MONSTRE_AVANCE = 0.3;
@@ -34,33 +34,33 @@ public class Joueur implements Serializable{
         while (true) {
             EffacerConsole.clear();
             System.out.println("\nMenu:");
-            System.out.println("1. Quitter le jeu");
-            System.out.println("2. Rejoindre la ferme");
-            System.out.println("3. Crafter");
-            System.out.println("4. Rejoindre un serveur PvP");
-            System.out.println("5. Consommer de la nourriture");
-            System.out.println("6. Afficher l'inventaire");
+            System.out.println("1. Rejoindre la ferme");
+            System.out.println("2. Crafter");
+            System.out.println("3. Rejoindre un serveur PvP");
+            System.out.println("4. Consommer de la nourriture");
+            System.out.println("5. Afficher l'inventaire");
+            System.out.println("6. Quitter le jeu");
             System.out.print("Choisissez une option: ");
             int choix = scanner.nextInt();
             scanner.nextLine();
     
             switch (choix) {
-                case 1:
+                case 6:
                     System.out.println("Vous avez quitté le jeu.");
                     return;
-                case 2:
+                case 1:
                     rejoindreFarm();
                     break;
-                case 3:
+                case 2:
                     crafter();
                     break;
-                case 4:
+                case 3:
                     rejoindrePVP();
                     break;
-                case 5:
-                    consommerNourriture(scanner);
+                case 4:
+                    consommerNourriture();
                     break;
-                case 6:
+                case 5:
                     afficherInventaire();
                     break;
                 default:
@@ -94,7 +94,7 @@ public class Joueur implements Serializable{
                 int tempsCasse = bloc.getTempsCasse();
                 for (int i = 0; i < tempsCasse; i += 1000) {
                     System.out.println("Cassage du bloc... (" + (tempsCasse - i) / 1000 + " secondes restantes)");
-                    TempsAttente.attendre(500);
+                    TempsAttente.attendre(100); // RECHANGER A 500
                 }
                 ajouterItemInventaire(bloc.recuperer());
                 TempsAttente.attendre(700);
@@ -187,7 +187,6 @@ public class Joueur implements Serializable{
                     ajouterItemInventaire(itemCrafted);
                 }
                 TempsAttente.attendre(1200);
-
             } else {
                 System.out.println("Vous n'avez pas les items nécessaires pour cette recette.");
                 TempsAttente.attendre(1200);
@@ -226,7 +225,7 @@ public class Joueur implements Serializable{
                 nom + " mange " + nourriture.getNom() + " et restaure " + nourriture.getRestaurationPV() + " PV.");
     }
 
-    private void consommerNourriture(Scanner scanner) {
+    public void consommerNourriture() {
         EffacerConsole.clear();
         System.out.println("Nourritures possédées :");
         List<Nourriture> nourritures = new ArrayList<>();
@@ -377,6 +376,7 @@ public class Joueur implements Serializable{
             Client client = new Client(this, socket);
             client.exec();
         } catch (Exception e) {
+            System.out.println("Erreur lors de la connexion au serveur PvP.");
             e.printStackTrace();
         }
     }
@@ -401,12 +401,36 @@ public class Joueur implements Serializable{
         return arme;
     }
 
+    public void setArme(Arme arme) {
+        this.arme = arme;
+    }
+
     public Armure getArmure() {
         return armure;
     }
 
+    public void setArmure(Armure armure) {
+        this.armure = armure;
+    }
+
+    public List<Item> getInventaire() {
+        return inventaire;
+    }
+
+    public void setInventaire(List<Item> inventaire) {
+        this.inventaire = inventaire;
+    }
+
+    public Scanner getScanner(){
+        return scanner;
+    }
+
     public void setPointsVie(int pointsVie) {
         this.pointsVie = pointsVie;
+    }
+
+    public void setScanner(Scanner scanner){
+        this.scanner = scanner;
     }
 
 }

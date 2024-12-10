@@ -57,6 +57,10 @@ public class Serveur {
         return inMap.get(client);
     }
 
+    public static void modifJoueurMap(Socket client, Joueur joueur) {
+        joueursMap.put(client, joueur);
+    }
+
     public static void setJoueur(Socket client, Joueur joueur) {
         synchronized (lock) {
             joueursMap.put(client, joueur);
@@ -102,7 +106,7 @@ public class Serveur {
                     out1.writeObject(joueursMap.get(client2));
                     out2.writeObject(joueursMap.get(client1));
 
-                    BoucleJeu boucleJeu = new BoucleJeu(clientsArrayList, joueursMap, outMap);
+                    BoucleJeu boucleJeu = new BoucleJeu(clientsArrayList, joueursMap, outMap, inMap);
                     boucleJeu.exec();
 
                     resetAll();
